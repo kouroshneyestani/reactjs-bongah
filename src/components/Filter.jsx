@@ -1,46 +1,20 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { FilterContext } from "../context/FilterContext";
+import useFilters from "../hooks/useFilters";
+import usePriceRange from "../hooks/usePriceRange";
 import { data } from "../data";
-import {
-    extractStates,
-    extractCountries,
-    extractPropertyTypes,
-    extractRentOrSellOptions,
-} from "../data";
-
 
 const Filter = () => {
     const { filters, updateFilters } = useContext(FilterContext);
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(1000000);
-    const [availableStates, setAvailableStates] = useState([]);
-    const [availableCountries, setAvailableCountries] = useState([]);
-    const [propertyTypes, setPropertyTypes] = useState([]);
-    const [rentOrSellOptions, setRentOrSellOptions] = useState([]);
 
-    useEffect(() => {
-        // Initialize min and max prices
-        const prices = data.map((item) => Number(item.price));
-        setMinPrice(Math.min(...prices));
-        setMaxPrice(Math.max(...prices));
-    }, []);
-
-    useEffect(() => {
-        // Update available states and countries
-        const states = extractStates(data);
-        setAvailableCountries(extractCountries(data));
-        if (filters.country) {
-            setAvailableStates(states[filters.country] || []);
-        } else {
-            setAvailableStates([]);
-        }
-    }, [filters.country]);
-
-    useEffect(() => {
-        // Update property types and rent or sell options
-        setPropertyTypes(extractPropertyTypes(data));
-        setRentOrSellOptions(extractRentOrSellOptions(data));
-    }, []);
+    // Use custom hooks
+    const [minPrice, maxPrice, setMinPrice, setMaxPrice] = usePriceRange(data);
+    const {
+        availableStates,
+        availableCountries,
+        propertyTypes,
+        rentOrSellOptions,
+    } = useFilters(data, filters);
 
     const handlePriceChange = (event) => {
         const [min, max] = event.target.value.split(",").map(Number);
