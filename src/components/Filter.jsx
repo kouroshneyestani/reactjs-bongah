@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { FilterContext } from "../context/FilterContext";
-import { data } from "../data";
-import { statesData } from "../data/stateData"; // Import state data
+import { data, extractStates } from "../data"; // Import extractStates function
 
 const Filter = () => {
     const { filters, updateFilters } = useContext(FilterContext);
@@ -16,8 +15,9 @@ const Filter = () => {
     }, []);
 
     useEffect(() => {
-        if (filters.country && statesData[filters.country]) {
-            setAvailableStates(statesData[filters.country]);
+        if (filters.country) {
+            const states = extractStates(data);
+            setAvailableStates(states[filters.country] || []);
         } else {
             setAvailableStates([]);
         }
