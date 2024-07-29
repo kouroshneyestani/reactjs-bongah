@@ -7,9 +7,9 @@ const ThemeToggle = () => {
 
     useEffect(() => {
         if (theme === "dark") {
-            document.documentElement.classList.add("dark");
+            document.body.classList.add("dark");
         } else {
-            document.documentElement.classList.remove("dark");
+            document.body.classList.remove("dark");
         }
         localStorage.setItem("theme", theme);
     }, [theme]);
@@ -21,7 +21,7 @@ const ThemeToggle = () => {
     return (
         <button
             onClick={toggleTheme}
-            className="p-2 bg-gray-300 dark:bg-gray-700 rounded"
+            className="p-2 bg-primary text-secondary rounded"
         >
             {theme === "light" ? "Dark Mode" : "Light Mode"}
         </button>

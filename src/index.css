@@ -2,12 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --afc-background-color: #ffffff;
+    --afc-text-color: #000000;
+    --afc-primary-color: hotpink;
+    --afc-secondary-color: #2d3748;
+}
 /* 
  * Colors
  */
-html.dark {
-    color: #fff;
-    background-color: #333;
+body {
+    color: var(--afc-text-color);
+    background-color: var(--afc-background-color);
+}
+body.dark {
+    color: var(--afc-background-color);
+    background-color: var(--afc-text-color);
 }
 /* 
  * Typography
