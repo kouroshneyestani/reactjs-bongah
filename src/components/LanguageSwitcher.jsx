@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const LanguageSwitcher = () => {
     const { i18n } = useTranslation();
+    const [language, setLanguage] = useState(
+        localStorage.getItem("language") || "en"
+    );
 
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
-        if (lng === "fa") {
-            document.body.setAttribute("dir", "rtl");
-        } else {
-            document.body.setAttribute("dir", "ltr");
-        }
+    useEffect(() => {
+        i18n.changeLanguage(language);
+    }, [language, i18n]);
+
+    const handleLanguageChange = (event) => {
+        const selectedLanguage = event.target.value;
+        setLanguage(selectedLanguage);
+        localStorage.setItem("language", selectedLanguage);
+        i18n.changeLanguage(selectedLanguage);
     };
 
     return (
-        <div>
-            <select onChange={(e) => changeLanguage(e.target.value)}>
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-                <option value="fa">فارسی</option>
-            </select>
-        </div>
+        <select value={language} onChange={handleLanguageChange}>
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="fa">Persian</option>
+        </select>
     );
 };
 
