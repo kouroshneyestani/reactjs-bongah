@@ -9,20 +9,13 @@ const Filter = () => {
     const { filters, updateFilters } = useContext(FilterContext);
 
     // Use custom hooks
-    const [minPrice, maxPrice, setMinPrice, setMaxPrice] = usePriceRange(data);
+    const [minPrice, maxPrice] = usePriceRange(data);
     const {
         availableStates,
         availableCountries,
         propertyTypes,
         rentOrSellOptions,
     } = useFilters(data, filters);
-
-    const handlePriceChange = (event) => {
-        const [min, max] = event.target.value.split(",").map(Number);
-        if (isValidPriceRange(min, max)) {
-            updateFilters({ priceRange: [min, max] });
-        }
-    };
 
     const handleMinPriceChange = (event) => {
         const newMinPrice = Number(event.target.value);
@@ -46,20 +39,15 @@ const Filter = () => {
         }
     };
 
-    const handleCountryChange = (event) => {
-        updateFilters({ country: event.target.value, state: "" });
-    };
+    const handleChange = (event) => {
+        const { name, value } = event.target;
 
-    const handleStateChange = (event) => {
-        updateFilters({ state: event.target.value });
-    };
-
-    const handlePropertyTypeChange = (event) => {
-        updateFilters({ propertyType: event.target.value });
-    };
-
-    const handleRentOrSellChange = (event) => {
-        updateFilters({ rentOrSell: event.target.value });
+        // Handle special case for country selection
+        if (name === "country") {
+            updateFilters({ country: value, state: "" });
+        } else {
+            updateFilters({ [name]: value });
+        }
     };
 
     return (
@@ -92,8 +80,9 @@ const Filter = () => {
             <label>
                 Country:
                 <select
+                    name="country"
                     value={filters.country || ""}
-                    onChange={handleCountryChange}
+                    onChange={handleChange}
                 >
                     <option value="">All</option>
                     {availableCountries.map((country) => (
@@ -106,8 +95,9 @@ const Filter = () => {
             <label>
                 State:
                 <select
+                    name="state"
                     value={filters.state || ""}
-                    onChange={handleStateChange}
+                    onChange={handleChange}
                     disabled={availableStates.length === 0}
                 >
                     <option value="">All</option>
@@ -121,8 +111,9 @@ const Filter = () => {
             <label>
                 Property Type:
                 <select
+                    name="propertyType"
                     value={filters.propertyType || ""}
-                    onChange={handlePropertyTypeChange}
+                    onChange={handleChange}
                 >
                     <option value="">All</option>
                     {propertyTypes.map((type) => (
@@ -135,8 +126,9 @@ const Filter = () => {
             <label>
                 Rent or Sell:
                 <select
+                    name="rentOrSell"
                     value={filters.rentOrSell || ""}
-                    onChange={handleRentOrSellChange}
+                    onChange={handleChange}
                 >
                     <option value="">All</option>
                     {rentOrSellOptions.map((option) => (
