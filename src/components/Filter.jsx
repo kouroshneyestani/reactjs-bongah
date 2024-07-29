@@ -17,25 +17,26 @@ const Filter = () => {
         rentOrSellOptions,
     } = useFilters(data, filters);
 
-    const handleMinPriceChange = (event) => {
-        const newMinPrice = Number(event.target.value);
-        if (
-            isValidPriceRange(newMinPrice, filters.priceRange?.[1] || maxPrice)
-        ) {
-            updateFilters({
-                priceRange: [newMinPrice, filters.priceRange?.[1] || maxPrice],
-            });
-        }
-    };
+    const handlePriceChange = (event) => {
+        const { name, value } = event.target;
+        const newValue = Number(value);
 
-    const handleMaxPriceChange = (event) => {
-        const newMaxPrice = Number(event.target.value);
-        if (
-            isValidPriceRange(filters.priceRange?.[0] || minPrice, newMaxPrice)
-        ) {
-            updateFilters({
-                priceRange: [filters.priceRange?.[0] || minPrice, newMaxPrice],
-            });
+        if (name === "minPrice") {
+            if (
+                isValidPriceRange(newValue, filters.priceRange?.[1] || maxPrice)
+            ) {
+                updateFilters({
+                    priceRange: [newValue, filters.priceRange?.[1] || maxPrice],
+                });
+            }
+        } else if (name === "maxPrice") {
+            if (
+                isValidPriceRange(filters.priceRange?.[0] || minPrice, newValue)
+            ) {
+                updateFilters({
+                    priceRange: [filters.priceRange?.[0] || minPrice, newValue],
+                });
+            }
         }
     };
 
@@ -57,19 +58,21 @@ const Filter = () => {
                 <div>
                     <input
                         type="range"
+                        name="minPrice"
                         min={minPrice}
                         max={maxPrice}
                         step="1000"
                         value={filters.priceRange?.[0] || minPrice}
-                        onChange={handleMinPriceChange}
+                        onChange={handlePriceChange}
                     />
                     <input
                         type="range"
+                        name="maxPrice"
                         min={minPrice}
                         max={maxPrice}
                         step="1000"
                         value={filters.priceRange?.[1] || maxPrice}
-                        onChange={handleMaxPriceChange}
+                        onChange={handlePriceChange}
                     />
                     <div>
                         ${filters.priceRange?.[0] || minPrice} - $
