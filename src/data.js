@@ -290,3 +290,26 @@ const { minPrice, maxPrice } = findMinMaxPrices(data);
 
 console.log(`Minimum Price: ${minPrice}`);
 console.log(`Maximum Price: ${maxPrice}`);
+
+// Function to extract unique states for each country
+export const extractStates = (data) => {
+    const states = {};
+    
+    data.forEach(item => {
+        if (!states[item.country]) {
+            states[item.country] = new Set();
+        }
+        states[item.country].add(item.state);
+    });
+    
+    // Convert sets to arrays for easier use
+    for (const country in states) {
+        states[country] = Array.from(states[country]);
+    }
+    
+    return states;
+};
+
+// Extract and log states
+const states = extractStates(data);
+console.log(states);
