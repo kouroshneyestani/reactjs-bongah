@@ -356,4 +356,5 @@ console.log(countries);
 console.log(propertyTypes);
 console.log(rentOrSellOptions);
 
-export { states, countries, propertyTypes, rentOrSellOptions };
+// Export functions
+export { extractStates, extractCountries, extractPropertyTypes, extractRentOrSellOptions };

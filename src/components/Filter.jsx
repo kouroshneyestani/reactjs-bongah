@@ -1,36 +1,67 @@
 import React, { useContext, useState, useEffect } from "react";
 import { FilterContext } from "../context/FilterContext";
+import { data } from "../data";
 import {
-    data,
-    states,
-    countries,
-    propertyTypes,
-    rentOrSellOptions,
+    extractStates,
+    extractCountries,
+    extractPropertyTypes,
+    extractRentOrSellOptions,
 } from "../data";
+
 
 const Filter = () => {
     const { filters, updateFilters } = useContext(FilterContext);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(1000000);
     const [availableStates, setAvailableStates] = useState([]);
+    const [availableCountries, setAvailableCountries] = useState([]);
+    const [propertyTypes, setPropertyTypes] = useState([]);
+    const [rentOrSellOptions, setRentOrSellOptions] = useState([]);
 
     useEffect(() => {
+        // Initialize min and max prices
         const prices = data.map((item) => Number(item.price));
         setMinPrice(Math.min(...prices));
         setMaxPrice(Math.max(...prices));
     }, []);
 
     useEffect(() => {
-        if (filters.country && states[filters.country]) {
-            setAvailableStates(states[filters.country]);
+        // Update available states and countries
+        const states = extractStates(data);
+        setAvailableCountries(extractCountries(data));
+        if (filters.country) {
+            setAvailableStates(states[filters.country] || []);
         } else {
             setAvailableStates([]);
         }
     }, [filters.country]);
 
+    useEffect(() => {
+        // Update property types and rent or sell options
+        setPropertyTypes(extractPropertyTypes(data));
+        setRentOrSellOptions(extractRentOrSellOptions(data));
+    }, []);
+
     const handlePriceChange = (event) => {
-        const [min, max] = event.target.value.split(",");
-        updateFilters({ priceRange: [Number(min), Number(max)] });
+        const [min, max] = event.target.value.split(",").map(Number);
+        if (min >= max) return; // Prevent invalid ranges
+        updateFilters({ priceRange: [min, max] });
+    };
+
+    const handleMinPriceChange = (event) => {
+        const newMinPrice = Number(event.target.value);
+        if (newMinPrice > (filters.priceRange?.[1] || maxPrice)) return; // Prevent min price exceeding max price
+        updateFilters({
+            priceRange: [newMinPrice, filters.priceRange?.[1] || maxPrice],
+        });
+    };
+
+    const handleMaxPriceChange = (event) => {
+        const newMaxPrice = Number(event.target.value);
+        if (newMaxPrice < (filters.priceRange?.[0] || minPrice)) return; // Prevent max price being less than min price
+        updateFilters({
+            priceRange: [filters.priceRange?.[0] || minPrice, newMaxPrice],
+        });
     };
 
     const handleCountryChange = (event) => {
@@ -53,41 +84,27 @@ const Filter = () => {
         <div>
             <label>
                 Price Range:
-                <input
-                    type="range"
-                    min={minPrice}
-                    max={maxPrice}
-                    step="1000"
-                    value={filters.priceRange?.[0] || minPrice}
-                    onChange={(e) =>
-                        handlePriceChange({
-                            target: {
-                                value: `${e.target.value},${
-                                    filters.priceRange?.[1] || maxPrice
-                                }`,
-                            },
-                        })
-                    }
-                />
-                <input
-                    type="range"
-                    min={minPrice}
-                    max={maxPrice}
-                    step="1000"
-                    value={filters.priceRange?.[1] || maxPrice}
-                    onChange={(e) =>
-                        handlePriceChange({
-                            target: {
-                                value: `${
-                                    filters.priceRange?.[0] || minPrice
-                                },${e.target.value}`,
-                            },
-                        })
-                    }
-                />
                 <div>
-                    ${filters.priceRange?.[0] || minPrice} - $
-                    {filters.priceRange?.[1] || maxPrice}
+                    <input
+                        type="range"
+                        min={minPrice}
+                        max={maxPrice}
+                        step="1000"
+                        value={filters.priceRange?.[0] || minPrice}
+                        onChange={handleMinPriceChange}
+                    />
+                    <input
+                        type="range"
+                        min={minPrice}
+                        max={maxPrice}
+                        step="1000"
+                        value={filters.priceRange?.[1] || maxPrice}
+                        onChange={handleMaxPriceChange}
+                    />
+                    <div>
+                        ${filters.priceRange?.[0] || minPrice} - $
+                        {filters.priceRange?.[1] || maxPrice}
+                    </div>
                 </div>
             </label>
             <label>
@@ -97,7 +114,7 @@ const Filter = () => {
                     onChange={handleCountryChange}
                 >
                     <option value="">All</option>
-                    {countries.map((country) => (
+                    {availableCountries.map((country) => (
                         <option key={country} value={country}>
                             {country}
                         </option>
