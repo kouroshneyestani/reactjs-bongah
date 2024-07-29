@@ -1,23 +1,26 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
+import HttpApi from "i18next-http-backend";
+
+// Import your translation files
+import en from "./locales/en/translation.json";
+import fr from "./locales/fr/translation.json";
+import fa from "./locales/fa/translation.json";
 
 i18n.use(HttpApi)
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-        supportedLngs: ["en", "fr", "fa"],
+        resources: {
+            en: { translation: en },
+            fr: { translation: fr },
+            fa: { translation: fa },
+        },
         fallbackLng: "en",
-        detection: {
-            order: ["path", "cookie", "htmlTag", "localStorage", "subdomain"],
-            caches: ["cookie"],
-        },
-        backend: {
-            loadPath: "/locales/{{lng}}/translation.json",
-        },
-        react: {
-            useSuspense: false,
+        lng: localStorage.getItem("language") || "en", // Set the initial language from localStorage
+        interpolation: {
+            escapeValue: false,
         },
     });
 
