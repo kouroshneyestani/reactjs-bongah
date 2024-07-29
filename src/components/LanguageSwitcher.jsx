@@ -9,6 +9,12 @@ const LanguageSwitcher = () => {
 
     useEffect(() => {
         i18n.changeLanguage(language);
+        // Update body dir attribute based on the selected language
+        if (language === "fa") {
+            document.body.setAttribute("dir", "rtl");
+        } else {
+            document.body.setAttribute("dir", "ltr");
+        }
     }, [language, i18n]);
 
     const handleLanguageChange = (event) => {
