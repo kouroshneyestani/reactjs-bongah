@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { FilterContext } from "../context/FilterContext";
 import useFilters from "../hooks/useFilters";
 import usePriceRange from "../hooks/usePriceRange";
+import { isValidPriceRange } from "../utils/priceUtils";
 import { data } from "../data";
 
 const Filter = () => {
@@ -18,24 +19,31 @@ const Filter = () => {
 
     const handlePriceChange = (event) => {
         const [min, max] = event.target.value.split(",").map(Number);
-        if (min >= max) return; // Prevent invalid ranges
-        updateFilters({ priceRange: [min, max] });
+        if (isValidPriceRange(min, max)) {
+            updateFilters({ priceRange: [min, max] });
+        }
     };
 
     const handleMinPriceChange = (event) => {
         const newMinPrice = Number(event.target.value);
-        if (newMinPrice > (filters.priceRange?.[1] || maxPrice)) return; // Prevent min price exceeding max price
-        updateFilters({
-            priceRange: [newMinPrice, filters.priceRange?.[1] || maxPrice],
-        });
+        if (
+            isValidPriceRange(newMinPrice, filters.priceRange?.[1] || maxPrice)
+        ) {
+            updateFilters({
+                priceRange: [newMinPrice, filters.priceRange?.[1] || maxPrice],
+            });
+        }
     };
 
     const handleMaxPriceChange = (event) => {
         const newMaxPrice = Number(event.target.value);
-        if (newMaxPrice < (filters.priceRange?.[0] || minPrice)) return; // Prevent max price being less than min price
-        updateFilters({
-            priceRange: [filters.priceRange?.[0] || minPrice, newMaxPrice],
-        });
+        if (
+            isValidPriceRange(filters.priceRange?.[0] || minPrice, newMaxPrice)
+        ) {
+            updateFilters({
+                priceRange: [filters.priceRange?.[0] || minPrice, newMaxPrice],
+            });
+        }
     };
 
     const handleCountryChange = (event) => {
