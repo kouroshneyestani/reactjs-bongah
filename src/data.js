@@ -1,4 +1,4 @@
-// import house images
+// Import house images
 import House1 from "./assets/images/houses/house (1).jpg";
 import House2 from "./assets/images/houses/house (2).jpg";
 import House3 from "./assets/images/houses/house (3).jpg";
@@ -12,12 +12,13 @@ import House10 from "./assets/images/houses/house (10).jpg";
 import House11 from "./assets/images/houses/house (11).jpg";
 import House12 from "./assets/images/houses/house (12).jpg";
 
-// import agents images
+// Import agents images
 import Avatar1 from "./assets/images/avatars/avatar-1.png";
 import Avatar2 from "./assets/images/avatars/avatar-2.png";
 import Avatar3 from "./assets/images/avatars/avatar-3.png";
 import Avatar4 from "./assets/images/avatars/avatar-4.png";
 
+// Define property data
 export const data = [
     {
         id: 1,
@@ -27,6 +28,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House1,
         country: "Iran",
+        state: "Tehran",
         address: "No. 24, Shariati St, Tehran",
         bedrooms: "6",
         bathrooms: "3",
@@ -48,6 +50,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House2,
         country: "UAE",
+        state: "Dubai",
         address: "78 Palm Jumeirah, Dubai",
         bedrooms: "6",
         bathrooms: "3",
@@ -68,6 +71,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House3,
         country: "Turkey",
+        state: "Istanbul",
         address: "45 Taksim Square, Istanbul",
         bedrooms: "6",
         bathrooms: "3",
@@ -89,12 +93,13 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House4,
         country: "Qatar",
+        state: "Doha",
         address: "12 Corniche St, Doha",
         bedrooms: "6",
         bathrooms: "3",
         surface: "4200 sq ft",
         year: "2016",
-        price: "20000",
+        price: "200000",
         agent: {
             image: Avatar4,
             name: "Salem Al-Thani",
@@ -109,6 +114,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House5,
         country: "Iran",
+        state: "Tehran",
         address: "No. 24, Shariati St, Tehran",
         bedrooms: "5",
         bathrooms: "3",
@@ -129,6 +135,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House6,
         country: "Iran",
+        state: "Tehran",
         address: "No. 24, Shariati St, Tehran",
         bedrooms: "6",
         bathrooms: "3",
@@ -149,6 +156,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House7,
         country: "Iran",
+        state: "Tehran",
         address: "45 Vali Asr St, Tehran",
         bedrooms: "3",
         bathrooms: "2",
@@ -169,6 +177,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House8,
         country: "UAE",
+        state: "Dubai",
         address: "15 Marina, Dubai",
         bedrooms: "3",
         bathrooms: "2",
@@ -189,6 +198,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House9,
         country: "Turkey",
+        state: "Istanbul",
         address: "78 Istiklal St, Istanbul",
         bedrooms: "2",
         bathrooms: "1",
@@ -209,6 +219,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House10,
         country: "Qatar",
+        state: "Doha",
         address: "56 West Bay, Doha",
         bedrooms: "4",
         bathrooms: "3",
@@ -229,6 +240,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House11,
         country: "Iraq",
+        state: "Baghdad",
         address: "12 Al Mansour, Baghdad",
         bedrooms: "4",
         bathrooms: "2",
@@ -250,6 +262,7 @@ export const data = [
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, illoat. Repudiandae ratione impedit delectus consectetur. Aspernatur vero obcaecati placeat ab distinctio unde ipsam molestias atque ratione delectus blanditiis nemo eius dignissimos doloremque quae aliquid maiores id tempore consequatur, quod pariatur saepe.",
         image: House12,
         country: "Iran",
+        state: "Mashhad",
         address: "9 Ferdowsi Sq, Mashhad",
         bedrooms: "3",
         bathrooms: "2",
@@ -266,7 +279,7 @@ export const data = [
 
 // Function to find min and max prices
 const findMinMaxPrices = (data) => {
-    const prices = data.map(item => Number(item.price));
+    const prices = data.map((item) => Number(item.price));
     const minPrice = Math.min(...prices);
     const maxPrice = Math.max(...prices);
     return { minPrice, maxPrice };

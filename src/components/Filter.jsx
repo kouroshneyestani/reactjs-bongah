@@ -1,11 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { FilterContext } from "../context/FilterContext";
-import { data } from "../data"; // Import data to calculate price range
+import { data } from "../data";
+import { statesData } from "../data/stateData"; // Import state data
 
 const Filter = () => {
     const { filters, updateFilters } = useContext(FilterContext);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(1000000);
+    const [availableStates, setAvailableStates] = useState([]);
 
     useEffect(() => {
         const prices = data.map((item) => Number(item.price));
@@ -13,11 +15,13 @@ const Filter = () => {
         setMaxPrice(Math.max(...prices));
     }, []);
 
-    // Check if `updateFilters` is defined
-    if (typeof updateFilters !== "function") {
-        console.error("updateFilters is not defined or is not a function");
-        return null; // Return null or an error message if `updateFilters` is not available
-    }
+    useEffect(() => {
+        if (filters.country && statesData[filters.country]) {
+            setAvailableStates(statesData[filters.country]);
+        } else {
+            setAvailableStates([]);
+        }
+    }, [filters.country]);
 
     const handlePriceChange = (event) => {
         const [min, max] = event.target.value.split(",");
@@ -48,7 +52,7 @@ const Filter = () => {
                     type="range"
                     min={minPrice}
                     max={maxPrice}
-                    step="1000" // Adjust step size if needed
+                    step="1000"
                     value={filters.priceRange?.[0] || minPrice}
                     onChange={(e) =>
                         handlePriceChange({
@@ -64,7 +68,7 @@ const Filter = () => {
                     type="range"
                     min={minPrice}
                     max={maxPrice}
-                    step="1000" // Adjust step size if needed
+                    step="1000"
                     value={filters.priceRange?.[1] || maxPrice}
                     onChange={(e) =>
                         handlePriceChange({
@@ -100,9 +104,14 @@ const Filter = () => {
                 <select
                     value={filters.state || ""}
                     onChange={handleStateChange}
+                    disabled={availableStates.length === 0}
                 >
                     <option value="">All</option>
-                    {/* Add states related to the selected country here */}
+                    {availableStates.map((state) => (
+                        <option key={state} value={state}>
+                            {state}
+                        </option>
+                    ))}
                 </select>
             </label>
             <label>
