@@ -35,6 +35,7 @@ export const data = [
         surface: "4200 sq ft",
         year: "2016",
         price: "110000",
+        rentOrSell: "Sell",
         agent: {
             image: Avatar1,
             name: "Kourosh Neyestani",
@@ -57,6 +58,7 @@ export const data = [
         surface: "4200 sq ft",
         year: "2016",
         price: "140000",
+        rentOrSell: "Sell",
         agent: {
             image: Avatar2,
             name: "Ahmed Bin Khalid",
@@ -78,6 +80,7 @@ export const data = [
         surface: "4200 sq ft",
         year: "2016",
         price: "170000",
+        rentOrSell: "Sell",
         agent: {
             image: Avatar3,
             name: "Fatma Yildiz",
@@ -100,6 +103,7 @@ export const data = [
         surface: "4200 sq ft",
         year: "2016",
         price: "200000",
+        rentOrSell: "Sell",
         agent: {
             image: Avatar4,
             name: "Salem Al-Thani",
@@ -121,6 +125,7 @@ export const data = [
         surface: "4200 sq ft",
         year: "2015",
         price: "210000",
+        rentOrSell: "Sell",
         agent: {
             image: Avatar1,
             name: "Kourosh Neyestani",
@@ -142,6 +147,7 @@ export const data = [
         surface: "6200 sq ft",
         year: "2014",
         price: "220000",
+        rentOrSell: "Sell",
         agent: {
             image: Avatar1,
             name: "Kourosh Neyestani",
@@ -163,6 +169,7 @@ export const data = [
         surface: "3000 sq ft",
         year: "2011",
         price: "7500000",
+        rentOrSell: "Sell",
         agent: {
             image: Avatar1,
             name: "Kourosh Neyestani",
@@ -184,6 +191,7 @@ export const data = [
         surface: "3000 sq ft",
         year: "2012",
         price: "90000",
+        rentOrSell: "Sell",
         agent: {
             image: Avatar2,
             name: "Ahmed Bin Khalid",
@@ -205,6 +213,7 @@ export const data = [
         surface: "2000 sq ft",
         year: "2011",
         price: "80000",
+        rentOrSell: "Rent",
         agent: {
             image: Avatar3,
             name: "Fatma Yildiz",
@@ -226,6 +235,7 @@ export const data = [
         surface: "4000 sq ft",
         year: "2013",
         price: "120000",
+        rentOrSell: "Sell", 
         agent: {
             image: Avatar4,
             name: "Salem Al-Thani",
@@ -247,6 +257,7 @@ export const data = [
         surface: "4000 sq ft",
         year: "2012",
         price: "180000",
+        rentOrSell: "Sell", 
         agent: {
             image: Avatar1,
             name: "Kourosh Neyestani",
@@ -269,6 +280,7 @@ export const data = [
         surface: "3100 sq ft",
         year: "2010",
         price: "680000",
+        rentOrSell: "Sell", 
         agent: {
             image: Avatar1,
             name: "Kourosh Neyestani",
@@ -276,6 +288,7 @@ export const data = [
         },
     },
 ];
+
 
 // Function to find min and max prices
 const findMinMaxPrices = (data) => {
@@ -285,14 +298,8 @@ const findMinMaxPrices = (data) => {
     return { minPrice, maxPrice };
 };
 
-// Find min and max prices
-const { minPrice, maxPrice } = findMinMaxPrices(data);
-
-console.log(`Minimum Price: ${minPrice}`);
-console.log(`Maximum Price: ${maxPrice}`);
-
 // Function to extract unique states for each country
-export const extractStates = (data) => {
+const extractStates = (data) => {
     const states = {};
     
     data.forEach(item => {
@@ -310,6 +317,43 @@ export const extractStates = (data) => {
     return states;
 };
 
-// Extract and log states
+// Function to extract unique countries from data
+const extractCountries = (data) => {
+    const countries = new Set();
+    data.forEach(item => countries.add(item.country));
+    return Array.from(countries);
+};
+
+// Function to extract unique property types from data
+const extractPropertyTypes = (data) => {
+    const types = new Set();
+    data.forEach(item => types.add(item.type));
+    return Array.from(types);
+};
+
+// Function to extract unique rent or sell options
+const extractRentOrSellOptions = (data) => {
+    const options = new Set();
+    data.forEach(item => {
+        if (item.rentOrSell) options.add(item.rentOrSell);
+    });
+    return Array.from(options);
+};
+
+// Find min and max prices
+const { minPrice, maxPrice } = findMinMaxPrices(data);
+
+console.log(`Minimum Price: ${minPrice}`);
+console.log(`Maximum Price: ${maxPrice}`);
+
 const states = extractStates(data);
+const countries = extractCountries(data);
+const propertyTypes = extractPropertyTypes(data);
+const rentOrSellOptions = extractRentOrSellOptions(data);
+
 console.log(states);
+console.log(countries);
+console.log(propertyTypes);
+console.log(rentOrSellOptions);
+
+export { states, countries, propertyTypes, rentOrSellOptions };

@@ -1,6 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { FilterContext } from "../context/FilterContext";
-import { data, extractStates } from "../data"; // Import extractStates function
+import {
+    data,
+    states,
+    countries,
+    propertyTypes,
+    rentOrSellOptions,
+} from "../data";
 
 const Filter = () => {
     const { filters, updateFilters } = useContext(FilterContext);
@@ -15,9 +21,8 @@ const Filter = () => {
     }, []);
 
     useEffect(() => {
-        if (filters.country) {
-            const states = extractStates(data);
-            setAvailableStates(states[filters.country] || []);
+        if (filters.country && states[filters.country]) {
+            setAvailableStates(states[filters.country]);
         } else {
             setAvailableStates([]);
         }
@@ -92,11 +97,11 @@ const Filter = () => {
                     onChange={handleCountryChange}
                 >
                     <option value="">All</option>
-                    <option value="Iran">Iran</option>
-                    <option value="UAE">UAE</option>
-                    <option value="Turkey">Turkey</option>
-                    <option value="Qatar">Qatar</option>
-                    <option value="Iraq">Iraq</option>
+                    {countries.map((country) => (
+                        <option key={country} value={country}>
+                            {country}
+                        </option>
+                    ))}
                 </select>
             </label>
             <label>
@@ -121,8 +126,11 @@ const Filter = () => {
                     onChange={handlePropertyTypeChange}
                 >
                     <option value="">All</option>
-                    <option value="House">House</option>
-                    <option value="Apartment">Apartment</option>
+                    {propertyTypes.map((type) => (
+                        <option key={type} value={type}>
+                            {type}
+                        </option>
+                    ))}
                 </select>
             </label>
             <label>
@@ -132,8 +140,11 @@ const Filter = () => {
                     onChange={handleRentOrSellChange}
                 >
                     <option value="">All</option>
-                    <option value="Rent">Rent</option>
-                    <option value="Sell">Sell</option>
+                    {rentOrSellOptions.map((option) => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                    ))}
                 </select>
             </label>
         </div>
