@@ -263,3 +263,17 @@ export const data = [
         },
     },
 ];
+
+// Function to find min and max prices
+const findMinMaxPrices = (data) => {
+    const prices = data.map(item => Number(item.price));
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+    return { minPrice, maxPrice };
+};
+
+// Find min and max prices
+const { minPrice, maxPrice } = findMinMaxPrices(data);
+
+console.log(`Minimum Price: ${minPrice}`);
+console.log(`Maximum Price: ${maxPrice}`);

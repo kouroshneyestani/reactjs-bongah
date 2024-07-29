@@ -1,8 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FilterContext } from "../context/FilterContext";
+import { data } from "../data"; // Import data to calculate price range
 
 const Filter = () => {
     const { filters, updateFilters } = useContext(FilterContext);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(1000000);
+
+    useEffect(() => {
+        const prices = data.map((item) => Number(item.price));
+        setMinPrice(Math.min(...prices));
+        setMaxPrice(Math.max(...prices));
+    }, []);
 
     // Check if `updateFilters` is defined
     if (typeof updateFilters !== "function") {
@@ -37,12 +46,40 @@ const Filter = () => {
                 Price Range:
                 <input
                     type="range"
-                    min="0"
-                    max="1000000"
-                    value={filters.priceRange?.join(",") || "0,1000000"}
-                    onChange={handlePriceChange}
-                    multiple
+                    min={minPrice}
+                    max={maxPrice}
+                    step="1000" // Adjust step size if needed
+                    value={filters.priceRange?.[0] || minPrice}
+                    onChange={(e) =>
+                        handlePriceChange({
+                            target: {
+                                value: `${e.target.value},${
+                                    filters.priceRange?.[1] || maxPrice
+                                }`,
+                            },
+                        })
+                    }
                 />
+                <input
+                    type="range"
+                    min={minPrice}
+                    max={maxPrice}
+                    step="1000" // Adjust step size if needed
+                    value={filters.priceRange?.[1] || maxPrice}
+                    onChange={(e) =>
+                        handlePriceChange({
+                            target: {
+                                value: `${
+                                    filters.priceRange?.[0] || minPrice
+                                },${e.target.value}`,
+                            },
+                        })
+                    }
+                />
+                <div>
+                    ${filters.priceRange?.[0] || minPrice} - $
+                    {filters.priceRange?.[1] || maxPrice}
+                </div>
             </label>
             <label>
                 Country:
