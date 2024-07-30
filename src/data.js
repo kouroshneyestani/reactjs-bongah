@@ -1,16 +1,16 @@
 // Import house images
-import House1 from "./assets/images/houses/house (1).jpg";
-import House2 from "./assets/images/houses/house (2).jpg";
-import House3 from "./assets/images/houses/house (3).jpg";
-import House4 from "./assets/images/houses/house (4).jpg";
-import House5 from "./assets/images/houses/house (5).jpg";
-import House6 from "./assets/images/houses/house (6).jpg";
-import House7 from "./assets/images/houses/house (7).jpg";
-import House8 from "./assets/images/houses/house (8).jpg";
-import House9 from "./assets/images/houses/house (9).jpg";
-import House10 from "./assets/images/houses/house (10).jpg";
-import House11 from "./assets/images/houses/house (11).jpg";
-import House12 from "./assets/images/houses/house (12).jpg";
+import House1 from "./assets/images/houses/house-1.jpg";
+import House2 from "./assets/images/houses/house-2.jpg";
+import House3 from "./assets/images/houses/house-3.jpg";
+import House4 from "./assets/images/houses/house-4.jpg";
+import House5 from "./assets/images/houses/house-5.jpg";
+import House6 from "./assets/images/houses/house-6.jpg";
+import House7 from "./assets/images/houses/house-7.jpg";
+import House8 from "./assets/images/houses/house-8.jpg";
+import House9 from "./assets/images/houses/house-9.jpg";
+import House10 from "./assets/images/houses/house-10.jpg";
+import House11 from "./assets/images/houses/house-11.jpg";
+import House12 from "./assets/images/houses/house-12.jpg";
 
 // Import agents images
 import Avatar1 from "./assets/images/avatars/avatar-1.png";
@@ -168,7 +168,7 @@ export const data = [
         bathrooms: "2",
         surface: "3000 sq ft",
         year: "2011",
-        price: "7500000",
+        price: "750000",
         rentOrSell: "Sell",
         agent: {
             image: Avatar1,
