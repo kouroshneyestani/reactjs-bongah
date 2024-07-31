@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FilterContext } from "../context/FilterContext";
 import useFilters from "../hooks/useFilters";
 import usePriceRange from "../hooks/usePriceRange";
-import { isValidPriceRange } from "../utils/priceUtils";
 import { data } from "../data/data";
 
 const Filter = () => {
@@ -10,33 +9,29 @@ const Filter = () => {
 
     // Use custom hooks
     const [minPrice, maxPrice] = usePriceRange(data);
-    const {
-        availableStates,
-        availableCountries,
-        propertyTypes,
-        rentOrSellOptions,
-    } = useFilters(data, filters);
+    const { availableStates, availableCountries, propertyTypes } = useFilters(
+        data,
+        filters
+    );
+
+    useEffect(() => {
+         updateFilters({
+             priceRange: [minPrice, maxPrice],
+         });
+     }, [])
 
     const handlePriceChange = (event) => {
         const { name, value } = event.target;
         const newValue = Number(value);
 
         if (name === "minPrice") {
-            if (
-                isValidPriceRange(newValue, filters.priceRange?.[1] || maxPrice)
-            ) {
-                updateFilters({
-                    priceRange: [newValue, filters.priceRange?.[1] || maxPrice],
-                });
-            }
+            updateFilters({
+                priceRange: [newValue, maxPrice],
+            });
         } else if (name === "maxPrice") {
-            if (
-                isValidPriceRange(filters.priceRange?.[0] || minPrice, newValue)
-            ) {
-                updateFilters({
-                    priceRange: [filters.priceRange?.[0] || minPrice, newValue],
-                });
-            }
+            updateFilters({
+                priceRange: [minPrice, newValue],
+            });
         }
     };
 
@@ -53,15 +48,15 @@ const Filter = () => {
     return (
         <div>
             <label>
-                price-range
+                رنج قیمت
                 <div>
                     <input
                         type="range"
                         name="minPrice"
                         min={minPrice}
                         max={maxPrice}
-                        step="1000"
-                        value={filters.priceRange?.[0] || minPrice}
+                        step="10000"
+                        value={minPrice}
                         onChange={handlePriceChange}
                     />
                     <input
@@ -69,23 +64,24 @@ const Filter = () => {
                         name="maxPrice"
                         min={minPrice}
                         max={maxPrice}
-                        step="1000"
-                        value={filters.priceRange?.[1] || maxPrice}
+                        step="10000"
+                        value={maxPrice}
                         onChange={handlePriceChange}
                     />
                     <div>
-                        {filters.priceRange?.[0] || minPrice} -{" "}
-                        {filters.priceRange?.[1] || maxPrice}
+                        {filters.priceRange?.[0].toLocaleString()  || minPrice.toLocaleString() } -{" "}
+                        {filters.priceRange?.[1].toLocaleString()  || maxPrice.toLocaleString() }
                     </div>
                 </div>
             </label>
             <label>
-                country <select
+                کشور
+                <select
                     name="country"
                     value={filters.country || ""}
                     onChange={handleChange}
                 >
-                    <option value="">All</option>
+                    <option value="">همه</option>
                     {availableCountries.map((country) => (
                         <option key={country} value={country}>
                             {country}
@@ -94,14 +90,14 @@ const Filter = () => {
                 </select>
             </label>
             <label>
-                State
+                استان
                 <select
                     name="state"
                     value={filters.state || ""}
                     onChange={handleChange}
                     disabled={availableStates.length === 0}
                 >
-                    <option value="">All</option>
+                    <option value="">همه</option>
                     {availableStates.map((state) => (
                         <option key={state} value={state}>
                             {state}
@@ -110,31 +106,16 @@ const Filter = () => {
                 </select>
             </label>
             <label>
-                Property Type
+                نوع
                 <select
                     name="propertyType"
                     value={filters.propertyType || ""}
                     onChange={handleChange}
                 >
-                    <option value="">All</option>
+                    <option value="">همه</option>
                     {propertyTypes.map((type) => (
                         <option key={type} value={type}>
                             {type}
-                        </option>
-                    ))}
-                </select>
-            </label>
-            <label>
-                Rent or Sell
-                <select
-                    name="rentOrSell"
-                    value={filters.rentOrSell || ""}
-                    onChange={handleChange}
-                >
-                    <option value="">All</option>
-                    {rentOrSellOptions.map((option) => (
-                        <option key={option} value={option}>
-                            {option}
                         </option>
                     ))}
                 </select>

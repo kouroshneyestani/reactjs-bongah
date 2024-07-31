@@ -4,7 +4,7 @@ export const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
     const [filters, setFilters] = useState({
-        priceRange: [0, 1000000],
+        priceRange: [0, 1000000000000],
         country: "",
         state: "",
         propertyType: "",

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const usePriceRange = (data, initialMin = 0, initialMax = 10000000) => {
+const usePriceRange = (data, initialMin = 0, initialMax = 2000000000) => {
     const [minPrice, setMinPrice] = useState(initialMin);
     const [maxPrice, setMaxPrice] = useState(initialMax);
 

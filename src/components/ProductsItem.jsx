@@ -11,16 +11,14 @@ export default function ProductsItem({ item }) {
                 />
             ) : (
                 <div className="w-full h-48 bg-gray-200 rounded-md flex items-center justify-center">
-                    No image available
+                    تصویر در دسترس نیست
                 </div>
             )}
 
             <span className="px-3 py-1 bg-primary text-white inline-block max-w-max rounded-default text-sm">
-                {item.location?.country || "No country"}
+                {item.location?.country}
             </span>
-            <h3 className="text-lg font-bold">
-                {item.location?.address || "No address"}
-            </h3>
+            <h3 className="text-lg font-bold">{item.location?.address}</h3>
             <ul className="flex items-center gap-3">
                 <li className="flex items-center gap-1">
                     <svg
@@ -51,21 +49,24 @@ export default function ProductsItem({ item }) {
                     <span>{item.details?.bathrooms || "N/A"}</span>
                 </li>
             </ul>
-            <p>
-                Price per Night:
-                {item.price?.pricePerNight?.toLocaleString() || "N/A"}{" "}
-                {item.price?.currency || ""}
-            </p>
+
+            {item.price?.pricePerNight && (
+                <p>
+                    <span>از شبی</span>:
+                    {item.price?.pricePerNight?.toLocaleString() || "N/A"}{" "}
+                    {item.price?.currency || ""}
+                </p>
+            )}
             {item.price?.pricePerMonth && (
                 <p>
-                    Price per Month:
+                    <span>اجاره ماهیانه</span>:
                     {item.price.pricePerMonth.toLocaleString()}{" "}
                     {item.price.currency}
                 </p>
             )}
             {item.price?.pricePerSale && (
                 <p>
-                    Price for Sale:
+                    <span>قیمت فروش</span>:
                     {item.price.pricePerSale.toLocaleString()}{" "}
                     {item.price.currency}
                 </p>

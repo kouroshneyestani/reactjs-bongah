@@ -62,7 +62,7 @@ const Products = () => {
                     <ProductsItem item={item} key={item.id} />
                 ))
             ) : (
-                <p>No products found.</p>
+                <p>هیچ موردی پیدا نشد.</p>
             )}
         </div>
     );
