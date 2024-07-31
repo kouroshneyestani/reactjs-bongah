@@ -53,25 +53,6 @@ export default function ProductsItem({ item }) {
                     </svg>
                     <span>{item.details?.bathrooms || t("N/A")}</span>
                 </li>
-                <li className="flex items-center gap-1">
-                    <svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        strokeWidth={0}
-                        viewBox="0 0 24 24"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path d="M3 5v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2zm16.002 14H5V5h14l.002 14z" />
-                        <path d="M15 12h2V7h-5v2h3zm-3 3H9v-3H7v5h5z" />
-                    </svg>
-                    <span>
-                        {item.details?.size
-                            ? `${item.details.size} sqm`
-                            : t("N/A")}
-                    </span>
-                </li>
             </ul>
             <p>
                 {t("Price per Night")}:
@@ -92,7 +73,6 @@ export default function ProductsItem({ item }) {
                     {item.price.currency}
                 </p>
             )}
-            <p>{`${t("Discount")}: ${item.price?.discount || t("N/A")}%`}</p>
         </div>
     );
 }
