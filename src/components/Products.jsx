@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+import ProductsItem from "./ProductsItem";
 import { FilterContext } from "../context/FilterContext";
 import { data } from "../data";
+import { useTranslation } from "react-i18next";
 
 const Products = () => {
+    const { t } = useTranslation();
     const { filters } = useContext(FilterContext);
     const [filteredData, setFilteredData] = useState(data);
 
@@ -10,34 +13,44 @@ const Products = () => {
         let filtered = data;
 
         if (filters.priceRange) {
-            filtered = filtered.filter(
-                (item) =>
-                    item.price >= filters.priceRange[0] &&
-                    item.price <= filters.priceRange[1]
-            );
+            filtered = filtered.filter((item) => {
+                const { pricePerSale, pricePerNight, pricePerMonth } =
+                    item.price;
+                const minPrice = filters.priceRange[0];
+                const maxPrice = filters.priceRange[1];
+                return (
+                    (pricePerNight >= minPrice && pricePerNight <= maxPrice) ||
+                    (pricePerMonth &&
+                        pricePerMonth >= minPrice &&
+                        pricePerMonth <= maxPrice) ||
+                    (pricePerSale &&
+                        pricePerSale >= minPrice &&
+                        pricePerSale <= maxPrice)
+                );
+            });
         }
 
         if (filters.country) {
             filtered = filtered.filter(
-                (item) => item.country === filters.country
+                (item) => item.location.country === filters.country
             );
         }
 
         if (filters.state) {
-            filtered = filtered.filter((item) =>
-                item.address.includes(filters.state)
+            filtered = filtered.filter(
+                (item) => item.location.state === filters.state
             );
         }
 
         if (filters.propertyType) {
             filtered = filtered.filter(
-                (item) => item.type === filters.propertyType
+                (item) => item.details.type === filters.propertyType
             );
         }
 
         if (filters.rentOrSell) {
             filtered = filtered.filter(
-                (item) => item.rentOrSell === filters.rentOrSell
+                (item) => item.price.type === filters.rentOrSell
             );
         }
 
@@ -45,26 +58,13 @@ const Products = () => {
     }, [filters]);
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
             {filteredData.length > 0 ? (
                 filteredData.map((item) => (
-                    <div key={item.id} className="product-item">
-                        <img src={item.image} alt={item.name} />
-                        <h2>{item.name}</h2>
-                        <p>{item.description}</p>
-                        <p>{item.country}</p>
-                        <p>{item.address}</p>
-                        <p>{item.bedrooms} Bedrooms</p>
-                        <p>{item.bathrooms} Bathrooms</p>
-                        <p>{item.surface} sq ft</p>
-                        <p>Year: {item.year}</p>
-                        <p>Price: ${item.price}</p>
-                        <p>Agent: {item.agent.name}</p>
-                        <p>Contact: {item.agent.phone}</p>
-                    </div>
+                    <ProductsItem item={item} key={item.id} />
                 ))
             ) : (
-                <p>No products found.</p>
+                <p>{t("No products found.")}</p>
             )}
         </div>
     );
