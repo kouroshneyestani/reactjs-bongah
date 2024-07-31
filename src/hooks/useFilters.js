@@ -5,7 +5,7 @@ import {
     extractCountries,
     extractPropertyTypes,
     extractRentOrSellOptions,
-} from "../data";
+} from "../data/data";
 
 const useFilters = (data, filters) => {
     const [availableStates, setAvailableStates] = useState([]);

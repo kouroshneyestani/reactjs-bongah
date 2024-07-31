@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ProductsItem from "./ProductsItem";
 import { FilterContext } from "../context/FilterContext";
-import { data } from "../data";
+import { data } from "../data/data";
 import { useTranslation } from "react-i18next";
 
 const Products = () => {

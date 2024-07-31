@@ -3,7 +3,7 @@ import { FilterContext } from "../context/FilterContext";
 import useFilters from "../hooks/useFilters";
 import usePriceRange from "../hooks/usePriceRange";
 import { isValidPriceRange } from "../utils/priceUtils";
-import { data } from "../data";
+import { data } from "../data/data";
 import { useTranslation } from "react-i18next";
 
 const Filter = () => {
