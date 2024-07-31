@@ -2,10 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import ProductsItem from "./ProductsItem";
 import { FilterContext } from "../context/FilterContext";
 import { data } from "../data/data";
-import { useTranslation } from "react-i18next";
 
 const Products = () => {
-    const { t } = useTranslation();
     const { filters } = useContext(FilterContext);
     const [filteredData, setFilteredData] = useState(data);
 
@@ -64,7 +62,7 @@ const Products = () => {
                     <ProductsItem item={item} key={item.id} />
                 ))
             ) : (
-                <p>{t("No products found.")}</p>
+                <p>No products found.</p>
             )}
         </div>
     );

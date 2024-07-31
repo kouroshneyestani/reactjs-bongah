@@ -4,10 +4,8 @@ import useFilters from "../hooks/useFilters";
 import usePriceRange from "../hooks/usePriceRange";
 import { isValidPriceRange } from "../utils/priceUtils";
 import { data } from "../data/data";
-import { useTranslation } from "react-i18next";
 
 const Filter = () => {
-    const { t } = useTranslation();
     const { filters, updateFilters } = useContext(FilterContext);
 
     // Use custom hooks
@@ -55,7 +53,7 @@ const Filter = () => {
     return (
         <div>
             <label>
-                {t("Price Range")}:
+                price-range
                 <div>
                     <input
                         type="range"
@@ -82,13 +80,12 @@ const Filter = () => {
                 </div>
             </label>
             <label>
-                {t("Country")}:
-                <select
+                country <select
                     name="country"
                     value={filters.country || ""}
                     onChange={handleChange}
                 >
-                    <option value="">{t("All")}</option>
+                    <option value="">All</option>
                     {availableCountries.map((country) => (
                         <option key={country} value={country}>
                             {country}
@@ -97,14 +94,14 @@ const Filter = () => {
                 </select>
             </label>
             <label>
-                {t("State")}:
+                State
                 <select
                     name="state"
                     value={filters.state || ""}
                     onChange={handleChange}
                     disabled={availableStates.length === 0}
                 >
-                    <option value="">{t("All")}</option>
+                    <option value="">All</option>
                     {availableStates.map((state) => (
                         <option key={state} value={state}>
                             {state}
@@ -113,13 +110,13 @@ const Filter = () => {
                 </select>
             </label>
             <label>
-                {t("Property Type")}:
+                Property Type
                 <select
                     name="propertyType"
                     value={filters.propertyType || ""}
                     onChange={handleChange}
                 >
-                    <option value="">{t("All")}</option>
+                    <option value="">All</option>
                     {propertyTypes.map((type) => (
                         <option key={type} value={type}>
                             {type}
@@ -128,13 +125,13 @@ const Filter = () => {
                 </select>
             </label>
             <label>
-                {t("Rent or Sell")}:
+                Rent or Sell
                 <select
                     name="rentOrSell"
                     value={filters.rentOrSell || ""}
                     onChange={handleChange}
                 >
-                    <option value="">{t("All")}</option>
+                    <option value="">All</option>
                     {rentOrSellOptions.map((option) => (
                         <option key={option} value={option}>
                             {option}
