@@ -4,8 +4,10 @@ import useFilters from "../hooks/useFilters";
 import usePriceRange from "../hooks/usePriceRange";
 import { isValidPriceRange } from "../utils/priceUtils";
 import { data } from "../data";
+import { useTranslation } from "react-i18next";
 
 const Filter = () => {
+    const { t } = useTranslation();
     const { filters, updateFilters } = useContext(FilterContext);
 
     // Use custom hooks
@@ -43,7 +45,6 @@ const Filter = () => {
     const handleChange = (event) => {
         const { name, value } = event.target;
 
-        // Handle special case for country selection
         if (name === "country") {
             updateFilters({ country: value, state: "" });
         } else {
@@ -54,7 +55,7 @@ const Filter = () => {
     return (
         <div>
             <label>
-                Price Range:
+                {t("Price Range")}:
                 <div>
                     <input
                         type="range"
@@ -75,19 +76,19 @@ const Filter = () => {
                         onChange={handlePriceChange}
                     />
                     <div>
-                        ${filters.priceRange?.[0] || minPrice} - $
+                        {filters.priceRange?.[0] || minPrice} -{" "}
                         {filters.priceRange?.[1] || maxPrice}
                     </div>
                 </div>
             </label>
             <label>
-                Country:
+                {t("Country")}:
                 <select
                     name="country"
                     value={filters.country || ""}
                     onChange={handleChange}
                 >
-                    <option value="">All</option>
+                    <option value="">{t("All")}</option>
                     {availableCountries.map((country) => (
                         <option key={country} value={country}>
                             {country}
@@ -96,14 +97,14 @@ const Filter = () => {
                 </select>
             </label>
             <label>
-                State:
+                {t("State")}:
                 <select
                     name="state"
                     value={filters.state || ""}
                     onChange={handleChange}
                     disabled={availableStates.length === 0}
                 >
-                    <option value="">All</option>
+                    <option value="">{t("All")}</option>
                     {availableStates.map((state) => (
                         <option key={state} value={state}>
                             {state}
@@ -112,13 +113,13 @@ const Filter = () => {
                 </select>
             </label>
             <label>
-                Property Type:
+                {t("Property Type")}:
                 <select
                     name="propertyType"
                     value={filters.propertyType || ""}
                     onChange={handleChange}
                 >
-                    <option value="">All</option>
+                    <option value="">{t("All")}</option>
                     {propertyTypes.map((type) => (
                         <option key={type} value={type}>
                             {type}
@@ -127,13 +128,13 @@ const Filter = () => {
                 </select>
             </label>
             <label>
-                Rent or Sell:
+                {t("Rent or Sell")}:
                 <select
                     name="rentOrSell"
                     value={filters.rentOrSell || ""}
                     onChange={handleChange}
                 >
-                    <option value="">All</option>
+                    <option value="">{t("All")}</option>
                     {rentOrSellOptions.map((option) => (
                         <option key={option} value={option}>
                             {option}
