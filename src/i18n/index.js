@@ -17,8 +17,8 @@ i18n.use(HttpApi)
             fr: { translation: fr },
             fa: { translation: fa },
         },
-        fallbackLng: "en",
-        lng: localStorage.getItem("language") || "en", // Set the initial language from localStorage
+        fallbackLng: "fa",
+        lng: localStorage.getItem("language") || "fa", // Set the initial language from localStorage
         interpolation: {
             escapeValue: false,
         },
